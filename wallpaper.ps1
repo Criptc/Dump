@@ -1,2 +1,2 @@
-Set-ItemProperty -path 'HCU:\Control Panel\Desktop\' -name wallpaper -value $1
+Set-ItemProperty -path 'HCU:\Control Panel\Desktop\' -name wallpaper -value C:\Users\$env:UserName\AppData\Local\Temp\img.jpg
 rundll32.exe user32.dll, UpdatePerUserSystemParameters
