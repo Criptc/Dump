@@ -3,10 +3,6 @@ import shutil
 from os import rename
 import os
 
-f = open('/tmp/test.txt', 'w')
-f.write('This is a test tp test out my compression that I make, I hope that it works well and doesnt cause any errors')
-f.close()
-
 def compress():
     inp = input('file to compress: ')
     f = open(inp, 'rb')
