@@ -1,26 +1,33 @@
 import zlib
+import shutil
 from os import rename
+import os
+
+f = open('/tmp/test.txt', 'w')
+f.write('This is a test tp test out my compression that I make, I hope that it works well and doesnt cause any errors')
+f.close()
 
 def compress():
     inp = input('file to compress: ')
     f = open(inp, 'rb')
     Bytes = f.read()
     f.close()
+    ogfile = inp
     if inp.endswith('.exe'):
         filetype = [0xFF]
-        filename = inp.replace('.exe')
+        filename = inp.replace('.exe', '')
     elif inp.endswith('.py'):
         filetype = [0xFE]
-        filename = inp.replace('.py')
+        filename = inp.replace('.py', '')
     elif inp.endswith('.txt'):
         filetype = [0xFD]
-        filename = inp.replace('.txt')
+        filename = inp.replace('.txt', '')
     elif inp.endswith('.bat') or inp.endswith('.cmd'):
         filetype = [0xFC]
-        filename = inp.replace('.bat')
+        filename = inp.replace('.bat', '')
     elif inp.endswith('.png'):
         filetype = [0xFB]
-        filename = inp.replace('.png')
+        filename = inp.replace('.png', '')
     elif inp.endswith('.jpeg') or inp.endswith('.jpg'):
         filetype = [0xFA]
         filename = inp.replace('.jpg')
@@ -33,10 +40,11 @@ def compress():
     else:
         raise Exception('unknown file extention')
     Bytes = zlib.compress(Bytes) + bytearray(filetype)
-    f = open(inp, 'wb')
+    f = open(ogfile, 'wb')
     f.write(Bytes)
     f.close()
-    os.rename(inp, filename + '.ecf')
+    zipedname = shutil.make_archive(filename, 'zip')
+    os.rename(zipedname, filename + '.ecf')
 
 def decompress():
     inp = input('file to decompress: ')
@@ -46,7 +54,7 @@ def decompress():
     Bytes = f.read()
     f.close()
     filetype = Bytes[-1:]
-    Bytes = [:len(Bytes)-1]
+    Bytes = Bytes[:len(Bytes) - 1]
     Data = zlib.decompress(Bytes)
     if filetype == b'\xff':
         filetype = '.exe'
