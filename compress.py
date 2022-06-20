@@ -2,13 +2,15 @@ import zlib
 import shutil
 from os import rename
 import os
+from time import sleep
 
 def compress():
+    # get file to compress
     inp = input('file to compress: ')
     f = open(inp, 'rb')
-    Bytes = f.read()
+    Bytes = f.read() # get bytes of the file
     f.close()
-    ogfile = inp
+    #-----add file extention to the end of the bytes-----#
     if inp.endswith('.exe'):
         filetype = [0xFF]
         filename = inp.replace('.exe', '')
@@ -35,12 +37,14 @@ def compress():
         filename = inp.replace('.bin')
     else:
         raise Exception('unknown file extention')
-    Bytes = zlib.compress(Bytes) + bytearray(filetype)
-    f = open(ogfile, 'wb')
-    f.write(Bytes)
+    #-----add file extention to the end of the bytes-----#
+    Bytes = zlib.compress(Bytes) + bytearray(filetype) # combind the bytes compressed and the filetype bytes
+    f = open(inp, 'wb')
+    f.write(Bytes) # write the compressed bytes to the file
     f.close()
-    zipedname = shutil.make_archive(filename, 'zip')
-    os.rename(zipedname, filename + '.ecf')
+    zipedname = shutil.make_archive(filename, 'zip') # zip the file
+    sleep(0.5)
+    os.rename(zipedname, filename + '.ecf') #rename the file
 
 def decompress():
     inp = input('file to decompress: ')
