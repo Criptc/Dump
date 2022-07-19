@@ -23,8 +23,7 @@ class _GetchUnix:
         return ch
 
 class _GetchWindows:
-    de
-f __init__(self):
+    def __init__(self):
         import msvcrt
     
     def __call__(self):
