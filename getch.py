@@ -14,12 +14,12 @@ class _GetchUnix:
     def __call__(self):
         import sys, tty, termios
         fd = sys.stdin.fileno()
-        old_settings = termios.tcsetattr(fd)
+        old_settings = termios.tcgetattr(fd)
         try:
             tty.setraw(sys.stdin.fileno())
             ch = sys.stdin.read(1)
         finally:
-            termios.tcgetattr(fd, termios.TCSADRAIN, old_settings)
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
 class _GetchWindows:
