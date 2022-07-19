@@ -1,10 +1,8 @@
 from getch import _Getch
 getch = _Getch()
-from time import sleep
 
 while True:
-    sleep(0.2)
     key = ord(getch())
+    if key == 27:
+        exit(0)
     print(key)
-
-
