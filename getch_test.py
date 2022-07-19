@@ -5,4 +5,4 @@ while True:
     key = ord(getch())
     if key == 27:
         exit(0)
-    print(key)
+    print(chr(key))
