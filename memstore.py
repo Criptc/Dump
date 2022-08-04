@@ -31,18 +31,14 @@ last = 0
 for i in range(im.size[0]):
     for a in range(im.size[1]):
         try:
-            pixels[i, a] = (ord(data[n]), ord(data[n+1]), ord(data[n+2]), ord(data[n+2]))
-        except:
-            try:
-                persent = round(i/im.size[0], 2)
-                if persent != last:
-                    last = persent
-                    persent = str(int(persent * 100)) + '%'
-                    print(persent, end='\r')
+            persent = round(i/im.size[0], 2)
+            if persent != last:
+                last = persent
+                persent = str(int(persent * 100)) + '%'
+                print(persent, end='\r')
                 pixels[i, a] = data[n], data[n+1], data[n+2], data[n+3]
-            except Exception as errr:
-                pixels[i, a] = (0, 0, 0, 0)
-        n += 4
+        except Exception as errr:
+            pixels[i, a] = (0, 0, 0, 0)
 
 im.save(f'{sys.argv[2]}.jpg')
 
