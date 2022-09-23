@@ -1,0 +1,63 @@
+C:\Users\Joseph\Desktop\python\async\downloads\coincurve-17.0.0>python setup.py install
+running install
+C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\easy_install.py:144: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running bdist_egg
+running egg_info
+writing coincurve.egg-info\PKG-INFO
+writing dependency_links to coincurve.egg-info\dependency_links.txt
+writing requirements to coincurve.egg-info\requires.txt
+writing top-level names to coincurve.egg-info\top_level.txt
+reading manifest file 'coincurve.egg-info\SOURCES.txt'
+Traceback (most recent call last):
+  File "C:\Users\Joseph\Desktop\python\async\downloads\coincurve-17.0.0\setup.py", line 264, in <module>
+    setup(
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\__init__.py", line 87, in setup
+    return distutils.core.setup(**attrs)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\core.py", line 177, in setup
+    return run_commands(dist)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\core.py", line 193, in run_commands
+    dist.run_commands()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\dist.py", line 968, in run_commands
+    self.run_command(cmd)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\dist.py", line 1217, in run_command
+    super().run_command(command)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\dist.py", line 987, in run_command
+    cmd_obj.run()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\install.py", line 74, in run
+    self.do_egg_install()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\install.py", line 123, in do_egg_install
+    self.run_command('bdist_egg')
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\cmd.py", line 317, in run_command
+    self.distribution.run_command(command)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\dist.py", line 1217, in run_command
+    super().run_command(command)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\dist.py", line 987, in run_command
+    cmd_obj.run()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\bdist_egg.py", line 156, in run
+    self.run_command("egg_info")
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\cmd.py", line 317, in run_command
+    self.distribution.run_command(command)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\dist.py", line 1217, in run_command
+    super().run_command(command)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\dist.py", line 987, in run_command
+    cmd_obj.run()
+  File "C:\Users\Joseph\Desktop\python\async\downloads\coincurve-17.0.0\setup.py", line 83, in run
+    _egg_info.run(self)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\egg_info.py", line 307, in run
+    self.find_sources()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\egg_info.py", line 314, in find_sources
+    mm.run()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\egg_info.py", line 549, in run
+    self.add_defaults()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\egg_info.py", line 593, in add_defaults
+    self.read_manifest()
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\sdist.py", line 195, in read_manifest
+    self.filelist.append(line)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\command\egg_info.py", line 491, in append
+    path = convert_path(item)
+  File "C:\Users\Joseph\AppData\Local\Programs\Python\Python310\lib\site-packages\setuptools\_distutils\util.py", line 138, in convert_path
+    raise ValueError("path '%s' cannot be absolute" % pathname)
+ValueError: path '/home/runner/work/coincurve/coincurve/libsecp256k1/.cirrus.yml' cannot be absolute
