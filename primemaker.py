@@ -1,4 +1,4 @@
-import rsa
+from rsa.prime import is_prime
 import threading
 from time import sleep
 import time
@@ -12,7 +12,7 @@ def find_p_primes():
 	global ps
 	p_primes = []
 	for i in range(int('1' + '0' * 163), int('1' + '0' * 164)-1):  # yes, very inefficent, I know
-		if rsa.prime.is_prime(i):
+		if is_prime(i):
 			global total_primes
 			total_primes += 1
 			print(f'prime found! {i}\ntotal primes: {total_primes}\n\n')
@@ -23,7 +23,7 @@ def find_q_primes():
 	global qs, total_primes
 	q_primes = []
 	for i in range(int('1' + '0' * 144), int('1' + '0' * 145)-1):
-		if rsa.prime.is_prime(i):
+		if is_prime(i):
 			global total_primes
 			total_primes += 1
 			print(f'prime found! {i}\ntotal primes: {total_primes}\n\n')
