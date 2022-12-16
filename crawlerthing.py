@@ -22,11 +22,14 @@ responce_codes = {
     400: "Client error",
     403: "Forbidden",
     404: "Doesn't exist",
-    429: "Too many requests"
+    405: "Not supported protocol",
+    429: "Too many requests",
+    503: "Not Ready",
+    999: "Request Denied",
 }
 
 def valid(url: str):
-    if re.fullmatch(r'^http[s]?://([A-Za-z0-9\-]*\.[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*(/[A-Za-z0-9\_\-\+\=\%\&\,\/\.\#\;\?\@ ]*$|$|/$)|[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*(/[A-Za-z0-9\_\-\+\=\%\&\,\/\.\#\;\?\@ ]*$|$|/$)|[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*(/[A-Za-z0-9\_\-\+\=\%\&\,\/\.\#\;\?\@ ]*$|$|/$)|(?!192\.168)(?!127\.)(?!10\.)(?!172\.(1[6-9]|2[0-9]|3[0-1]))\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(/$|/.*$|$|:\d*$))', url) != None:
+    if re.fullmatch(r'^http[s]?://([A-Za-z0-9\-]*\.[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*(/[A-Za-z0-9_\-+=%&,/.#;?@ :|()~!$\[\]]*$|$|/$)|[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*(/[A-Za-z0-9_\-+=%&,/.#;?@ :|()~!$\[\]]*$|$|/$)|[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*\.[A-Za-z0-9\-]*(/[A-Za-z0-9_\-+=%&,/.#;?@ :|()~!$\[\]]*$|$|/$)|(?!192\.168)(?!127\.)(?!10\.)(?!172\.(1[6-9]|2[0-9]|3[0-1]))\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(/$|/.*$|$|:\d*$))', url) != None:
         return True
     else:
         return False
@@ -62,7 +65,7 @@ emails = []
 ips = []
 
 class crawler:
-    def __init__(self, requestdelay=0, starturls=["example.com"], headers="", returnurls=False):
+    def __init__(self, requestdelay=0, starturls=["youtube.com"], headers="", returnurls=False):
         if type(starturls) is not list and type(starturls) == str:
             starturls = list(starturls)
         
@@ -146,14 +149,14 @@ class crawler:
                                 specials.append(i)
                         elif "redirect" in i and not valid(i):
                             if i not in invalids:
-                                print("failed to parse redirect")
+                                print("failed to parse redirect                               ")
                         else:
                             if mail(i):
                                 if mail(i) not in emails:
                                     emails.append(mail(i))
                             else:
                                 if i not in invalids:
-                                    print(f"{i} is not valid {not valid(i)}")
+                                    print(f"{i} is not valid: {not valid(i)}                           ")
                                 invalids.append(i)
     
             for i in re.findall('url\((\"|\').*?(\"|\')\)', data):
@@ -181,14 +184,14 @@ class crawler:
                                 specials.append(i)
                         elif "redirect" in i and not valid(i):
                             if i not in invalids:
-                                print("failed to parse redirect")
+                                print("failed to parse redirect                               ")
                         else:
                             if mail(i):
                                 if mail(i) not in emails:
                                     emails.append(mail(i))
                             else:
                                 if i not in invalids:
-                                    print(f"{i} is not valid {not valid(i)}")
+                                    print(f"{i} is not valid: {not valid(i)}                           ")
                                 invalids.append(i)
     
             for i in re.findall(r'import((\s|){(.*?\n*)*?}(\s|)from|)(\s|)(\"|\').*?(\"|\');', data):
@@ -219,14 +222,14 @@ class crawler:
                                 specials.append(i)
                         elif "redirect" in i and not valid(i):
                             if i not in invalids:
-                                print("failed to parse redirect")
+                                print("failed to parse redirect                                   ")
                         else:
                             if mail(i):
                                 if mail(i) not in emails:
                                     emails.append(mail(i))
                             else:
                                 if i not in invalids:
-                                    print(f"{i} is not valid {not valid(i)}")
+                                    print(f"{i} is not valid: {not valid(i)}                        ")
                                 invalids.append(i)
                         
             return links
@@ -234,6 +237,10 @@ class crawler:
         def scan(self, url: str):
             if url.startswith("data:"):
                 return ''
+
+            if url.startswith('//') and valid("http:" + url):
+                url = "http: + url"
+            
             
             try:
                 req = requests.get(url, allow_redirects=True, headers=self.headers)
@@ -249,6 +256,10 @@ class crawler:
                 # removed print due to tons of "cant be connected to"s on older websites
                 #print(f"{url} can't be connected to                        ")
                 invalids.append(url)
+                return ''
+            except Exception as err:
+                invalids.append(url)
+                print(f"{url} caused an error: {err}")
                 return ''
             
             if req.status_code != 200:
@@ -321,9 +332,6 @@ class crawler:
                 processed += 1
     
                 if urls == '' or len(urls) == 0:  # check that there are any at all
-                    if self.delay > 0:
-                        sleep(self.delay)
-                        
                     continue
                 
                 for url in urls:
@@ -332,15 +340,9 @@ class crawler:
                         continue
                     
                     if url in queue.queued():  # if its already in the queue, ignore it
-                        if self.delay > 0:
-                            sleep(self.delay)
-                        
                         continue
     
                     queue.push(url)  # add urls to queue to be scanned
-    
-                if self.delay > 0:  # if self.delay is set, sleep its value
-                    sleep(self.delay)
 
         except KeyboardInterrupt:
             print(f"{processed} urls proccessed, {queue.count()} urls left in queue, and {len(invalids)} invalid urls                        \n")
